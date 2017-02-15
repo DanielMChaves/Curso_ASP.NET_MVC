@@ -86,3 +86,7 @@ C:\Workspace\Tutoriales\MvcMovie\MvcMovie\bin\es\Microsoft.Owin.Security.Microso
 C:\Workspace\Tutoriales\MvcMovie\MvcMovie\obj\Debug\MvcMovie.csprojResolveAssemblyReference.cache
 C:\Workspace\Tutoriales\MvcMovie\MvcMovie\obj\Debug\MvcMovie.dll
 C:\Workspace\Tutoriales\MvcMovie\MvcMovie\obj\Debug\MvcMovie.pdb
+C:\Workspace\Tutoriales\MvcMovie\MvcMovie\obj\Debug\MvcMovie.Migrations.Initial.resources
+C:\Workspace\Tutoriales\MvcMovie\MvcMovie\obj\Debug\MvcMovie.csproj.GenerateResource.Cache
+C:\Workspace\Tutoriales\MvcMovie\MvcMovie\obj\Debug\MvcMovie.Migrations.AddRatingMig.resources
+C:\Workspace\Tutoriales\MvcMovie\MvcMovie\obj\Debug\MvcMovie.Migrations.AddDataAnnotationsMig.resources

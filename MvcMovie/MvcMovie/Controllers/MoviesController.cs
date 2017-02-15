@@ -40,11 +40,8 @@ namespace MvcMovie.Controllers
         }
 
         // POST: Movies/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Title,ReleaseDate,Genre,Price")] Movie movie)
+        public ActionResult Create(Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -57,17 +54,15 @@ namespace MvcMovie.Controllers
         }
 
         // GET: Movies/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id = 0)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Movie movie = db.Movies.Find(id);
+
             if (movie == null)
             {
                 return HttpNotFound();
             }
+
             return View(movie);
         }
 
@@ -75,8 +70,7 @@ namespace MvcMovie.Controllers
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Title,ReleaseDate,Genre,Price")] Movie movie)
+        public ActionResult Edit(Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -84,6 +78,7 @@ namespace MvcMovie.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(movie);
         }
 
@@ -111,6 +106,33 @@ namespace MvcMovie.Controllers
             db.Movies.Remove(movie);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult SearchIndex(string movieGenre, string searchString)
+        {
+            var GenreLst = new List<string>();
+
+            var GenreQry = from d in db.Movies
+                           orderby d.Genre
+                           select d.Genre;
+            GenreLst.AddRange(GenreQry.Distinct());
+            ViewBag.movieGenre = new SelectList(GenreLst);
+
+            var movies = from m in db.Movies
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                movies = movies.Where(s => s.Title.Contains(searchString));
+            }
+
+            if (string.IsNullOrEmpty(movieGenre))
+                return View(movies);
+            else
+            {
+                return View(movies.Where(x => x.Genre == movieGenre));
+            }
+
         }
 
         protected override void Dispose(bool disposing)
